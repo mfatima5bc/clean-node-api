@@ -7,11 +7,6 @@
     "test": "jest",
     "prepare": "husky install"
   },
-  "lint-staged": {
-    "*.js": [
-      "standard --fix"
-    ]
-  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
