@@ -1,4 +1,4 @@
-function teste () {
+function Teste () {
     return { a: 1 };
 }
 
