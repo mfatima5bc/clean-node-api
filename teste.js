@@ -3,3 +3,4 @@ function teste () {
 }
 
 a = 1;
+c = 2;
