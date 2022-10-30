@@ -1,3 +1,5 @@
 function teste () {
-  return { a: 1 };
+    return { a: 1 };
 }
+
+a = 1;
