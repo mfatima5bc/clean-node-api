@@ -82,6 +82,16 @@ const makeUpdateAcessTokenRepository = () => {
   return new UpdateAccessTokenRepositorySpy()
 }
 
+const makeUpdateAcessTokenRepositoryWithError = () => {
+  class UpdateAccessTokenRepositorySpy {
+    async update () {
+      throw new Error()
+    }
+  }
+
+  return new UpdateAccessTokenRepositorySpy()
+}
+
 const makeSut = () => {
   const encrypterSpy = makeEncrypter()
   const loadUserEmailRepositorySpy = makeLoadUserEmailRepository()
@@ -220,6 +230,7 @@ describe('Auth UseCase', () => {
   test('Should throw if dependency throw', async () => {
     const loadUserByEmailRepository = makeLoadUserEmailRepository()
     const encrypter = makeEncrypter()
+    const tokenGenerator = makeTokenGenerator()
     const suts = [].concat(
       new AuthUseCase({
         loadUserByEmailRepository: makeLoadUserEmailRepositoryWithError()
@@ -232,6 +243,12 @@ describe('Auth UseCase', () => {
         loadUserByEmailRepository,
         encrypter,
         tokenGenerator: makeTokenGeneratorWithError()
+      }),
+      new AuthUseCase({
+        loadUserByEmailRepository,
+        encrypter,
+        tokenGenerator,
+        updateAccessTokenRepository: makeUpdateAcessTokenRepositoryWithError()
       })
     )
     for (const sut of suts) {
